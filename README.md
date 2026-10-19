@@ -92,16 +92,16 @@ Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null
 - Validates that the five executed binaries return finite values. write/stat/open syscalls and lat_pipe/lat_unix/lat_proc are not collected
 - #1: Null syscall latency, us (lat_syscall_null_us); is present and physically sensible.
 - #2: Context-switch latency, us (context_switch_latency_us); is present and physically sensible.
-- #3: 16 MB stride-128 read latency, ns (lat_mem_rd_16mb_stride128_ns); is present and physically sensible.
-- #4: Memory read bandwidth, MB/s (bw_mem_mb_s); is present and physically sensible.
+- #3: 16 MB stride-128 sequential-read latency, cache- and prefetch-assisted, ns (lat_mem_rd_16mb_stride128_ns); is present and physically sensible.
+- #4: Single-thread memory read bandwidth, MB/s (bw_mem_mb_s); is present and physically sensible.
 - #5: Inter-process pipe bandwidth, MB/s (bw_pipe_mb_s) is present and physically sensible.
 
 ## 3. Metrics Captured
 
 - **#1: Null syscall latency, us** — stored as `lat_syscall_null_us`.
 - **#2: Context-switch latency, us** — stored as `context_switch_latency_us`.
-- **#3: 16 MB stride-128 read latency, ns** — stored as `lat_mem_rd_16mb_stride128_ns`.
-- **#4: Memory read bandwidth, MB/s** — stored as `bw_mem_mb_s`.
+- **#3: 16 MB stride-128 sequential-read latency, cache- and prefetch-assisted, ns** — stored as `lat_mem_rd_16mb_stride128_ns`.
+- **#4: Single-thread memory read bandwidth, MB/s** — stored as `bw_mem_mb_s`.
 - **#5: Inter-process pipe bandwidth, MB/s** — stored as `bw_pipe_mb_s`.
 
 ## 4. Hardware Requirements
@@ -192,7 +192,7 @@ Expected ranges and gates live in `config/benchmark_config.yaml` under `baseline
 Create cannot finish without `scripts/collect_workload.py`.
 
 **`self_check` overlay rewritten**
-Do not overwrite files listed in `results/overlay_lock.json`.
+`Locked overlay rewritten` means the sibling file and the `sha256` in `results/overlay_lock.json` disagree. The repair is to make `implementation_components/<component-id>/files/<path>`, the sibling path, and that digest the same bytes, then recheck with `create_one_workload.py --validate-only`. Do not replace the overlay with a new collector, and do not regenerate a non-empty sibling.
 
 **Remote SSH drop during setup**
 Reconnect and resume `bash setup.sh --assume-yes`. Do not wipe `.venv` or `.cache`.
