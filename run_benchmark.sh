@@ -47,16 +47,7 @@ Validation and logging:
 Workload options:
   --parallel-jobs <value>            Override parallel_jobs
   --warmup-duration-us <value>            Override warmup_duration_us
-  --lat-ctx <value>            Override lat_ctx
-  --lat-mem-rd <value>            Override lat_mem_rd
-  --bw-mem <value>            Override bw_mem
-  --bw-pipe <value>            Override bw_pipe
-  --lat-pipe <value>            Override lat_pipe
-  --lat-unix <value>            Override lat_unix
-  --lat-syscall <value>            Override lat_syscall
-  --lat-proc <value>            Override lat_proc
   --repetitions <value>            Override repetitions
-  --output-format <value>            Override output_format
 
 Information:
   --specification               Print this workload's specification and exit
@@ -92,16 +83,7 @@ OUTPUT_FORMAT=""
 SAVE_OPTIONS_FILE=""
 PARALLEL_JOBS=""
 WARMUP_DURATION_US=""
-LAT_CTX=""
-LAT_MEM_RD=""
-BW_MEM=""
-BW_PIPE=""
-LAT_PIPE=""
-LAT_UNIX=""
-LAT_SYSCALL=""
-LAT_PROC=""
 REPETITIONS=""
-OUTPUT_FORMAT=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -124,16 +106,7 @@ while [[ $# -gt 0 ]]; do
     --save-options-file) SAVE_OPTIONS_FILE="${2:-}"; shift 2 ;;
     --parallel-jobs) PARALLEL_JOBS="${2:-}"; shift 2 ;;
     --warmup-duration-us) WARMUP_DURATION_US="${2:-}"; shift 2 ;;
-    --lat-ctx) LAT_CTX="${2:-}"; shift 2 ;;
-    --lat-mem-rd) LAT_MEM_RD="${2:-}"; shift 2 ;;
-    --bw-mem) BW_MEM="${2:-}"; shift 2 ;;
-    --bw-pipe) BW_PIPE="${2:-}"; shift 2 ;;
-    --lat-pipe) LAT_PIPE="${2:-}"; shift 2 ;;
-    --lat-unix) LAT_UNIX="${2:-}"; shift 2 ;;
-    --lat-syscall) LAT_SYSCALL="${2:-}"; shift 2 ;;
-    --lat-proc) LAT_PROC="${2:-}"; shift 2 ;;
     --repetitions) REPETITIONS="${2:-}"; shift 2 ;;
-    --output-format) OUTPUT_FORMAT="${2:-}"; shift 2 ;;
     --help|--specification|--matrix-definition) shift ;;
     *) die "Unknown option: $1" ;;
   esac
@@ -174,16 +147,7 @@ PY
 
 PARALLEL_JOBS="${PARALLEL_JOBS:-$(yaml_get parallel_jobs)}"
 WARMUP_DURATION_US="${WARMUP_DURATION_US:-$(yaml_get warmup_duration_us)}"
-LAT_CTX="${LAT_CTX:-$(yaml_get lat_ctx)}"
-LAT_MEM_RD="${LAT_MEM_RD:-$(yaml_get lat_mem_rd)}"
-BW_MEM="${BW_MEM:-$(yaml_get bw_mem)}"
-BW_PIPE="${BW_PIPE:-$(yaml_get bw_pipe)}"
-LAT_PIPE="${LAT_PIPE:-$(yaml_get lat_pipe)}"
-LAT_UNIX="${LAT_UNIX:-$(yaml_get lat_unix)}"
-LAT_SYSCALL="${LAT_SYSCALL:-$(yaml_get lat_syscall)}"
-LAT_PROC="${LAT_PROC:-$(yaml_get lat_proc)}"
 REPETITIONS="${REPETITIONS:-$(yaml_get repetitions)}"
-OUTPUT_FORMAT="${OUTPUT_FORMAT:-$(yaml_get output_format)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-$(yaml_get output_format)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-csv}"
 
@@ -191,16 +155,7 @@ BENCHMARK_RUN_COMMAND="bash run_benchmark.sh --${PROFILE}"
 [[ "${VALIDATE}" -eq 1 ]] && BENCHMARK_RUN_COMMAND+=" --validate"
 [[ -n "${PARALLEL_JOBS}" ]] && BENCHMARK_RUN_COMMAND+=" --parallel-jobs $(printf %q "${PARALLEL_JOBS}")"
 [[ -n "${WARMUP_DURATION_US}" ]] && BENCHMARK_RUN_COMMAND+=" --warmup-duration-us $(printf %q "${WARMUP_DURATION_US}")"
-[[ -n "${LAT_CTX}" ]] && BENCHMARK_RUN_COMMAND+=" --lat-ctx $(printf %q "${LAT_CTX}")"
-[[ -n "${LAT_MEM_RD}" ]] && BENCHMARK_RUN_COMMAND+=" --lat-mem-rd $(printf %q "${LAT_MEM_RD}")"
-[[ -n "${BW_MEM}" ]] && BENCHMARK_RUN_COMMAND+=" --bw-mem $(printf %q "${BW_MEM}")"
-[[ -n "${BW_PIPE}" ]] && BENCHMARK_RUN_COMMAND+=" --bw-pipe $(printf %q "${BW_PIPE}")"
-[[ -n "${LAT_PIPE}" ]] && BENCHMARK_RUN_COMMAND+=" --lat-pipe $(printf %q "${LAT_PIPE}")"
-[[ -n "${LAT_UNIX}" ]] && BENCHMARK_RUN_COMMAND+=" --lat-unix $(printf %q "${LAT_UNIX}")"
-[[ -n "${LAT_SYSCALL}" ]] && BENCHMARK_RUN_COMMAND+=" --lat-syscall $(printf %q "${LAT_SYSCALL}")"
-[[ -n "${LAT_PROC}" ]] && BENCHMARK_RUN_COMMAND+=" --lat-proc $(printf %q "${LAT_PROC}")"
 [[ -n "${REPETITIONS}" ]] && BENCHMARK_RUN_COMMAND+=" --repetitions $(printf %q "${REPETITIONS}")"
-[[ -n "${OUTPUT_FORMAT}" ]] && BENCHMARK_RUN_COMMAND+=" --output-format $(printf %q "${OUTPUT_FORMAT}")"
 set_benchmark_run_command "${BENCHMARK_RUN_COMMAND}"
 
 HOSTNAME_VALUE="$(hostname -s 2>/dev/null || hostname)"
@@ -245,16 +200,7 @@ run_collection() {
   grep -q -- '--output-format' <<<"${help}" && collect_args+=(--output-format "${OUTPUT_FORMAT}")
   grep -q -- '--parallel-jobs' <<<"${help}" && collect_args+=(--parallel-jobs "${PARALLEL_JOBS}")
   grep -q -- '--warmup-duration-us' <<<"${help}" && collect_args+=(--warmup-duration-us "${WARMUP_DURATION_US}")
-  grep -q -- '--lat-ctx' <<<"${help}" && collect_args+=(--lat-ctx "${LAT_CTX}")
-  grep -q -- '--lat-mem-rd' <<<"${help}" && collect_args+=(--lat-mem-rd "${LAT_MEM_RD}")
-  grep -q -- '--bw-mem' <<<"${help}" && collect_args+=(--bw-mem "${BW_MEM}")
-  grep -q -- '--bw-pipe' <<<"${help}" && collect_args+=(--bw-pipe "${BW_PIPE}")
-  grep -q -- '--lat-pipe' <<<"${help}" && collect_args+=(--lat-pipe "${LAT_PIPE}")
-  grep -q -- '--lat-unix' <<<"${help}" && collect_args+=(--lat-unix "${LAT_UNIX}")
-  grep -q -- '--lat-syscall' <<<"${help}" && collect_args+=(--lat-syscall "${LAT_SYSCALL}")
-  grep -q -- '--lat-proc' <<<"${help}" && collect_args+=(--lat-proc "${LAT_PROC}")
   grep -q -- '--repetitions' <<<"${help}" && collect_args+=(--repetitions "${REPETITIONS}")
-  grep -q -- '--output-format' <<<"${help}" && collect_args+=(--output-format "${OUTPUT_FORMAT}")
 
   printf -v collect_cmd '%q ' "${PYTHON_BIN}" scripts/collect_workload.py "${collect_args[@]}"
   echo "[RUN] ${collect_cmd}"
