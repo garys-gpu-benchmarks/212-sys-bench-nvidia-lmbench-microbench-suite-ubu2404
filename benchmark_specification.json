@@ -25,6 +25,11 @@
     "value": "sys-bench-nvidia-lmbench-microbench-suite-ubu2404"
   },
   {
+    "field_name": "Repo Directory Name",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "212-sys-bench-nvidia-lmbench-microbench-suite-ubu2404"
+  },
+  {
     "field_name": "Main Goal",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "Measure a fixed lmbench microbench subset"
@@ -57,7 +62,7 @@
   {
     "field_name": "Execution Description With Parameters",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null and read only), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe. repetitions: suite repeats. Yaml lat_pipe, lat_unix, lat_proc, and extra lat_syscall variants are documented but not executed"
+    "value": "Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null and read only), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe. repetitions: suite repeats. warmup_duration_us: lmbench -W, microseconds each test runs untimed before it is timed (lat_mem_rd warms up once per array size). Every tool runs single-threaded (no -P). Yaml lat_pipe, lat_unix, lat_proc, and extra lat_syscall variants are documented but not executed"
   },
   {
     "field_name": "Execution Domain",
@@ -102,17 +107,17 @@
   {
     "field_name": "run_benchmark Command Plus Options for Smoke Run",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "bash run_benchmark.sh --smoke --validate --parallel-jobs 1 --warmup-duration-us 1000 --repetitions 1"
+    "value": "bash run_benchmark.sh --smoke --validate --warmup-duration-us 1000 --repetitions 1"
   },
   {
     "field_name": "run_benchmark Command Plus Options for Baseline Run",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "bash run_benchmark.sh --baseline --validate --parallel-jobs 2 --warmup-duration-us 1000000 --repetitions 1"
+    "value": "bash run_benchmark.sh --baseline --validate --warmup-duration-us 10000 --repetitions 1"
   },
   {
     "field_name": "run_benchmark Command Plus Options for Extended Run",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "bash run_benchmark.sh --extended --validate --parallel-jobs 2 --warmup-duration-us 1000000 --repetitions 4"
+    "value": "bash run_benchmark.sh --extended --validate --warmup-duration-us 10000 --repetitions 4"
   },
   {
     "field_name": "Output Fields / Metrics to Parse",
@@ -227,17 +232,17 @@
   {
     "field_name": "Parameter_01",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "parallel_jobs"
+    "value": "warmup_duration_us"
   },
   {
     "field_name": "Parameter_02",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "warmup_duration_us"
+    "value": "repetitions"
   },
   {
     "field_name": "Parameter_03",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "repetitions"
+    "value": "-"
   },
   {
     "field_name": "Parameter_04",
@@ -407,7 +412,7 @@
   {
     "field_name": "Profile Parameter Values",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend",
-    "value": "{\"parallel_jobs\": {\"smoke\": \"1\", \"baseline\": \"2\", \"extended\": \"2\", \"notes\": \"Subtest timeout is not a Parameter_*. Generation must use 30s/60s/120s by profile plus one retry.\"}, \"warmup_duration_us\": {\"smoke\": \"1000\", \"baseline\": \"1000000\", \"extended\": \"1000000\", \"notes\": \"\"}, \"repetitions\": {\"smoke\": \"1\", \"baseline\": \"1\", \"extended\": \"4\", \"notes\": \"Aligned to match 112/312 (repetitions=5 baseline / 13 extended) on 2026-09-07, superseding the earlier H100 retune noted below. Prior rationale for the retune: 00_75 H100 20260905: overlay runs 6 short lmbench binaries; 5 reps was 4s. 300 reps ~4 min. Extended 750 ~10 min. 2026-09-08: found config/parameter_overrides.yaml still had this workload (and its 412 sibling) stuck at the pre-alignment baseline=300/extended=750, silently overriding this correct 5/13 at generation time -- fixed the override to match this sheet. FLAG FOR GARY: a separate 2026-09-08 remote-VM measurement on a different template lineage found extended=14 targets this workload's own ~12 min duration slightly more precisely than the 112/312-matched 13; left at 13 here since matching siblings was the deliberate call, pending confirmation.\"}}"
+    "value": "{\"warmup_duration_us\": {\"smoke\": \"1000\", \"baseline\": \"10000\", \"extended\": \"10000\", \"notes\": \"Now passed as lmbench -W (microseconds); lat_mem_rd 16 128 warms up once per array size, so 1 s added about a minute per repetition\"}, \"repetitions\": {\"smoke\": \"1\", \"baseline\": \"1\", \"extended\": \"4\", \"notes\": \"Aligned to match 112/312 (repetitions=5 baseline / 13 extended) on 2026-09-07, superseding the earlier H100 retune noted below. Prior rationale for the retune: 00_75 H100 20260905: overlay runs 6 short lmbench binaries; 5 reps was 4s. 300 reps ~4 min. Extended 750 ~10 min. 2026-09-08: found config/parameter_overrides.yaml still had this workload (and its 412 sibling) stuck at the pre-alignment baseline=300/extended=750, silently overriding this correct 5/13 at generation time -- fixed the override to match this sheet. FLAG FOR GARY: a separate 2026-09-08 remote-VM measurement on a different template lineage found extended=14 targets this workload's own ~12 min duration slightly more precisely than the 112/312-matched 13; left at 13 here since matching siblings was the deliberate call, pending confirmation.\"}}"
   },
   {
     "field_name": "Profile Command Authorship",
