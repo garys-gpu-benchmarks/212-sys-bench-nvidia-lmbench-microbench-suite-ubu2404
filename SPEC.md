@@ -2,7 +2,7 @@
 
 ## Execution Description
 
-Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null and read only), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe. repetitions: suite repeats. warmup_duration_us: lmbench -W, microseconds each test runs untimed before it is timed (lat_mem_rd warms up once per array size). Every tool runs single-threaded (no -P). Sweep dimensions: warmup_duration_us, repetitions.
+Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null and read only), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe. repetitions: suite repeats. warmup_duration_us: lmbench -W, microseconds each test runs untimed before it is timed (lat_mem_rd warms up once per array size). Every tool runs single-threaded (no -P) Sweep dimensions: warmup_duration_us, repetitions.
 
 ## Parameters
 
@@ -32,7 +32,7 @@ Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null
 
 ## Installation and Execution Summary
 
-Run lmbench lat_syscall (null and read), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe once per yaml repetitions, then parse the first float, to measure syscall, context-switch, and memory-read latency plus memory and pipe bandwidth. lat_pipe, lat_unix, and lat_proc are not executed
+Run lmbench lat_syscall (null and read), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe once per yaml repetitions, then parse the first float, to measure syscall, context-switch, and memory-read latency plus memory and pipe bandwidth
 
 ## Platform Portability
 

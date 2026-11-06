@@ -15,13 +15,13 @@ This PRD.md section is populated from benchmark_specification.json, which is the
 lmbench Microbench Suite
 
 ## Execution Summary (Run and Measure)
-Run lmbench lat_syscall (null and read), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe once per yaml repetitions, then parse the first float, to measure syscall, context-switch, and memory-read latency plus memory and pipe bandwidth. lat_pipe, lat_unix, and lat_proc are not executed
+Run lmbench lat_syscall (null and read), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe once per yaml repetitions, then parse the first float, to measure syscall, context-switch, and memory-read latency plus memory and pipe bandwidth
 
 ## Main Goal
 Measure a fixed lmbench microbench subset
 
 ## Validation Objective
-Validates that the five executed binaries return finite values. write/stat/open syscalls and lat_pipe/lat_unix/lat_proc are not collected
+Validates finite lmbench syscall, context-switch, memory-latency, memory-bandwidth, and pipe-bandwidth results
 
 ## Workload Category
 System Profiling & Performance Analysis
