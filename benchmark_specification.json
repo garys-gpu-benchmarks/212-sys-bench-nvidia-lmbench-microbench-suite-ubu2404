@@ -40,6 +40,11 @@
     "value": "Run lmbench lat_syscall (null, read), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe"
   },
   {
+    "field_name": "Execution Description With Parameters",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null and read only), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe. repetitions: suite repeats. warmup_duration_us: lmbench -W, microseconds each test runs untimed before it is timed (lat_mem_rd warms up once per array size). Every tool runs single-threaded (no -P)"
+  },
+  {
     "field_name": "Metrics",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "#1: Null syscall latency, us (lat_syscall_null_us); #2: Context-switch latency, us (context_switch_latency_us); #3: 16 MB stride-128 sequential-read latency, cache- and prefetch-assisted, ns (lat_mem_rd_16mb_stride128_ns); #4: Single-thread memory read bandwidth, MB/s (bw_mem_mb_s); #5: Inter-process pipe bandwidth, MB/s (bw_pipe_mb_s)"
@@ -173,11 +178,6 @@
     "field_name": "Command Methodology",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "Run lmbench lat_syscall for null and read only, lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe once per yaml repetitions, then parse the first float"
-  },
-  {
-    "field_name": "Execution Description With Parameters",
-    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Runs a fixed lmbench subset from PATH or /usr/lib/lmbench/bin: lat_syscall (null and read only), lat_ctx, lat_mem_rd 16 128, bw_mem 512m rd, and bw_pipe. repetitions: suite repeats. warmup_duration_us: lmbench -W, microseconds each test runs untimed before it is timed (lat_mem_rd warms up once per array size). Every tool runs single-threaded (no -P)"
   },
   {
     "field_name": "Execution Domain",
