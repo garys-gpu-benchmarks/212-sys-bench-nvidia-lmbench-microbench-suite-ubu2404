@@ -11,16 +11,16 @@ Reference results from the validation run on the system shown in each section (r
 ## smoke
 
 - **System:** 1× NVIDIA H100 80GB HBM3 (81559 MiB) · Intel(R) Xeon(R) Platinum 8470 · Ubuntu 24.04.5 LTS · kernel 6.8.0-149-generic · driver 595.112.07
-- **Run:** 2026-11-22T10:53:49Z · status **PASS** (exit 0)
+- **Run:** 2026-11-22T14:18:46Z · status **PASS** (exit 0)
 - **Time (mm:ss):** setup 00:29 · benchmark 00:44 · whole run 01:18
-- **Source:** run 212_20261122_105349
+- **Source:** run 212_20261122_141846
 - **Command:** `bash run_benchmark.sh --smoke --warmup-duration-us 1000 --repetitions 1`
 
 | # | Metric | Result |
 |---|---|---|
-| 1 | Null syscall latency, us (lat_syscall_null_us) | 0.1242 |
-| 2 | Context-switch latency, us (context_switch_latency_us) | 2.5 |
-| 3 | 16 MB stride-128 sequential-read latency, cache- and prefetch-assisted, ns (lat_mem_rd_16mb_stride128_ns) | 6.84 |
-| 4 | Single-thread memory read bandwidth, MB/s (bw_mem_mb_s) | 13304.69 |
-| 5 | Inter-process pipe bandwidth, MB/s (bw_pipe_mb_s) | 3400.96 |
+| 1 | Null syscall latency, us (lat_syscall_null_us) | 0.1285 |
+| 2 | Context-switch latency, us (context_switch_latency_us) | 2.81 |
+| 3 | 16 MB stride-128 sequential-read latency, cache- and prefetch-assisted, ns (lat_mem_rd_16mb_stride128_ns) | 6.905 |
+| 4 | Single-thread memory read bandwidth, MB/s (bw_mem_mb_s) | 13437.56 |
+| 5 | Inter-process pipe bandwidth, MB/s (bw_pipe_mb_s) | 2682.54 |
 <!-- /profile:smoke -->
